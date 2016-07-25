@@ -54,7 +54,9 @@ abstract class Base{{ class_name }}Model extends AbstractModel
     }
 
 {% if 'constraints' in column|keys %}
-
+    /**
+     * @returns Models\{{ column.constraints.remote_model_class }}Model
+     */
     public function fetch{{ column.field }}Object() : Models\{{ column.constraints.remote_model_class }}Model
     {
         ${{ column.constraints.remote_model_class }}Service = App::Container()->get(Services\{{ column.constraints.remote_model_class }}Service::class);
@@ -65,6 +67,7 @@ abstract class Base{{ class_name }}Model extends AbstractModel
         return ${{ column.constraints.remote_model_class }}Service->getByField('{{ column.constraints.remote_model_key }}', $this->get{{ column.field }}());
 {% endif %}
     }
+
 {% endif %}
 {% endfor %}
 
