@@ -8,7 +8,6 @@
   ],
   "bin": [
     "generator/automize",
-    "generator/composer-optimise",
     "generator/phpcsfixerfier",
     "generator/psr2ifier",
     "generator/sdkifier",

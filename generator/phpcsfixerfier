@@ -1,8 +1,10 @@
 #!/usr/bin/env php
 <?php
+use Zend\Stdlib\ConsoleHelper;
 if (!defined("APP_ROOT")) {
     define("APP_ROOT", realpath(__DIR__ . "/../../../../"));
 }
+require_once(APP_ROOT . "/bootstrap.php");
 $begin = microtime(true);
 echo "php-cs-fixer-fying... \n";
 $pathsToPSR2 = [
@@ -38,12 +40,15 @@ $phpCsFixerRules = [
 function phpcsfixerfy($pathToPSR2, $phpCsFixerRules)
 {
     ob_start();
+    $command = APP_ROOT . "/vendor/bin/php-cs-fixer fix -q --rules=\"" . implode(",", $phpCsFixerRules) . "\" {$pathToPSR2}" ;
     echo " > {$pathToPSR2} ... ";
     $begin = microtime(true);
-    exec(APP_ROOT . "/vendor/bin/php-cs-fixer fix {$pathToPSR2} --rules=" . implode(",", $phpCsFixerRules));
+    system($command, $junk);
     $time = microtime(true) - $begin;
-    echo " [Complete in " . number_format($time, 2) . "]\n";
-    echo ob_get_clean();
+    ob_end_clean();
+    echo " [" . ConsoleHelper::COLOR_GREEN . "Complete" . ConsoleHelper::COLOR_RESET . " in " . number_format($time, 2) . "]\n";
+
+    //echo $output;
 }
 
 foreach ($pathsToPSR2 as $pathToPSR2) {
@@ -51,8 +56,7 @@ foreach ($pathsToPSR2 as $pathToPSR2) {
     if (file_exists($pathToPSR2)) {
         phpcsfixerfy($pathToPSR2, $phpCsFixerRules);
     } else {
-        echo "\n";
-        echo "  > Skipping, files or directory does not exist.\n";
+        echo " [" . ConsoleHelper::COLOR_RED . "Skipping" . ConsoleHelper::COLOR_RESET . ", files or directory does not exist.]\n";
     }
 }
 

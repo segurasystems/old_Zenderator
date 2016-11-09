@@ -14,6 +14,7 @@ use Slim\Http\Uri;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\Adapter as DbAdaptor;
 use Zend\Db\Metadata\Metadata;
+use Zend\Stdlib\ConsoleHelper;
 use Zenderator\Components\Model;
 use Zenderator\Exception\SchemaToAdaptorException;
 
@@ -153,11 +154,14 @@ class Zenderator
         return $columns;
     }
 
-    public function makeZenderator()
+    public function makeZenderator($cleanByDefault = false)
     {
         $models = $this->makeModelSchemas();
+        $this->removeCoreGeneratedFiles();
         $this->makeCoreFiles($models);
-        $this->cleanCode();
+        if($cleanByDefault) {
+            $this->cleanCode();
+        }
     }
 
     private function makeModelSchemas()
@@ -220,6 +224,25 @@ class Zenderator
         return $models;
     }
 
+    private function removeCoreGeneratedFiles(){
+        $generatedPaths = [
+            APP_ROOT . "/src/Controllers/Base/",
+            APP_ROOT . "/src/Models/Base/",
+            APP_ROOT . "/src/Routes/Generated/",
+            APP_ROOT . "/src/Services/Base/",
+            APP_ROOT . "/src/TableGateways/Base/",
+            APP_ROOT . "/tests/Api/Generated/",
+            APP_ROOT . "/tests/Models/Generated/",
+            APP_ROOT . "/tests/Services/Generated/",
+        ];
+        foreach($generatedPaths as $generatedPath){
+            foreach(new \DirectoryIterator($generatedPath) as $file){
+                if(!$file->isDot() && $file->getExtension() == 'php') {
+                    unlink($file->getRealPath());
+                }
+            }
+        }
+    }
     /**
      * @param Model[] $models
      */
@@ -267,7 +290,7 @@ class Zenderator
 
         echo "Generating App Container:";
         $this->renderToFile(true, APP_ROOT . "/src/AppContainer.php", "DependencyInjector/appcontainer.php.twig", ['models' => $allModelData, 'config' => $this->config]);
-        echo " [DONE]\n\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n\n";
 
         // "Routes" suit
         if (in_array("Routes", $this->config['templates'])) {
@@ -276,7 +299,7 @@ class Zenderator
                 'models' => $allModelData,
                 'app_container' => APP_CORE_NAME,
             ]);
-            echo " [DONE]\n\n";
+            echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n\n";
         }
     }
 
@@ -304,7 +327,7 @@ class Zenderator
         }
     }
 
-    private function cleanCode()
+    public function cleanCode()
     {
         if (is_array($this->config['formatting']) && in_array("clean", $this->config['formatting'])) {
             $this->cleanCodePHPCSFixer();
@@ -325,17 +348,55 @@ class Zenderator
         require(__DIR__ . "/../generator/psr2ifier");
     }
 
-    private function cleanCodeComposerAutoloader()
+    public function cleanCodeComposerAutoloader()
     {
-        require(__DIR__ . "/../generator/composer-optimise");
+        $begin = microtime(true);
+        echo "Optimising Composer Autoloader... \n";
+        exec("composer dump-autoload -o");
+        $time = microtime(true) - $begin;
+        echo "\n[Complete in " . number_format($time, 2) . "]\n";
     }
 
-    public function makeSDK($outputPath = APP_ROOT)
+    public function runTests($withCoverage = false)
+    {
+        echo "Running phpunit... \n";
+
+        if($withCoverage) {
+            passthru("./vendor/bin/phpunit");
+        }else{
+            passthru("./vendor/bin/phpunit --no-coverage");
+        }
+        sleep(3);
+    }
+
+    public function updateSeguraDependencies()
+    {
+        $composerJson = json_decode(file_get_contents(APP_ROOT . "/composer.json"),true);
+        $dependencies = array_merge($composerJson['require'], $composerJson['require-dev']);
+        $toUpdate = [];
+        foreach($dependencies as $dependency => $version){
+            if(substr($dependency, 0, strlen("segura/")) == "segura/"){
+                $toUpdate[] = $dependency;
+            }
+        }
+        $begin = microtime(true);
+        echo "Updating Segura Composer Dependencies... \n";
+        foreach($toUpdate as $item){
+            echo " > {$item}\n";
+        }
+        exec("composer update " . implode(" ", $toUpdate));
+        $time = microtime(true) - $begin;
+        echo "\n[Complete in " . number_format($time, 2) . "]\n";
+    }
+
+    public function makeSDK($outputPath = APP_ROOT, $cleanByDefault = true)
     {
         $models = $this->makeModelSchemas();
         $this->makeSDKFiles($models, $outputPath);
         $this->removePHPVCRCassettes($outputPath);
-        $this->cleanCode();
+        if($cleanByDefault) {
+            $this->cleanCode();
+        }
     }
 
     private function makeSDKFiles($models, $outputPath = APP_ROOT)
@@ -411,24 +472,24 @@ class Zenderator
         $this->renderToFile(true, $outputPath . "/src/Abstracts/AbstractAccessLayer.php", "SDK/Abstracts/abstractaccesslayer.php.twig", $renderData);
         $this->renderToFile(true, $outputPath . "/src/Abstracts/AbstractClient.php", "SDK/Abstracts/abstractclient.php.twig", $renderData);
         $this->renderToFile(true, $outputPath . "/src/Abstracts/AbstractModel.php", "SDK/Abstracts/abstractmodel.php.twig", $renderData);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         echo "Generating Filter Objects:";
         $this->renderToFile(true, $outputPath . "/src/Filters/Filter.php", "SDK/Filters/filter.php.twig", $renderData);
         $this->renderToFile(true, $outputPath . "/src/Filters/FilterCondition.php", "SDK/Filters/filtercondition.php.twig", $renderData);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         echo "Generating Client Container:";
         $this->renderToFile(true, $outputPath . "/src/Client.php", "SDK/client.php.twig", $renderData);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         echo "Generating Composer.json:";
         $this->renderToFile(true, $outputPath . "/composer.json", "SDK/composer.json.twig", $renderData);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         echo "Generating Test Bootstrap:";
         $this->renderToFile(true, $outputPath . "/bootstrap.php", "SDK/bootstrap.php.twig", $renderData);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         echo "Generating phpunit.xml, documentation, etc:";
         $this->renderToFile(true, $outputPath . "/phpunit.xml.dist", "SDK/phpunit.xml.twig", $renderData);
@@ -438,7 +499,7 @@ class Zenderator
         $this->renderToFile(true, $outputPath . "/test-compose.yml", "SDK/docker-compose.yml.twig", $renderData);
         $this->renderToFile(true, $outputPath . "/run-tests.sh", "SDK/run-tests.sh.twig", $renderData);
         chmod($outputPath . "/run-tests.sh", 0755);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         echo "Generating Exceptions:";
         $derivedExceptions = [
@@ -449,7 +510,7 @@ class Zenderator
             $this->renderToFile(true, $outputPath . "/src/Exceptions/{$derivedException}.php", "SDK/Exceptions/DerivedException.php.twig", array_merge($renderData, ['ExceptionName' => $derivedException]));
         }
         $this->renderToFile(true, $outputPath . "/src/Exceptions/SDKException.php", "SDK/Exceptions/SDKException.php.twig", $renderData);
-        echo " [DONE]\n";
+        echo " [" . ConsoleHelper::COLOR_GREEN . "DONE" . ConsoleHelper::COLOR_RESET . "]\n";
 
         #\Kint::dump($renderData);
     }

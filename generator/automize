@@ -8,15 +8,62 @@ $rootOfApp = __DIR__ . "/../../../../";
 
 require_once($rootOfApp . "/bootstrap.php");
 
-$itemCallable = function (CliMenu $menu) {
-    echo $menu->getSelectedItem()->getText();
-};
+$mysqlConfigLocation = $rootOfApp . "/config/mysql.php";
+if(!file_exists($mysqlConfigLocation)){
+    die("Cannot find MySQL Config as expected at {$mysqlConfigLocation}\n\n");
+}
+$databaseConfigs = require($mysqlConfigLocation);
+$zenderator = new \Zenderator\Zenderator(
+    $rootOfApp,
+    $databaseConfigs
+);
 
 $menu = (new CliMenuBuilder)
-    ->setTitle('Basic CLI Menu')
-    ->addItem('First Item', $itemCallable)
-    ->addItem('Second Item', $itemCallable)
-    ->addItem('Third Item', $itemCallable)
+    ->setTitle('Segura Automizer')
+    ->addItem('Run Zenderator', function (CliMenu $menu) use ($zenderator){
+        $zenderator->makeZenderator(false);
+        $menu->redraw();
+    })
+    ->addItem('Run SDKifier', function (CliMenu $menu) use ($zenderator){
+        $zenderator->makeSDK(null, false);
+        $menu->redraw();
+    })
+    ->addItem('Purge System of Sin (Rebuild Everything & Clean)', function (CliMenu $menu) use ($zenderator){
+        $zenderator->makeZenderator(false);
+        $zenderator->makeSDK(null, false);
+        $zenderator->cleanCode();
+        $zenderator->runTests(false);
+        $menu->redraw();
+    })
+    ->addLineBreak('-')
+    ->addSubMenu('Tests')
+        ->setTitle('Segura Automizer > Tests')
+        ->addItem('Run Tests without Coverage (fast)', function(CliMenu $menu) use ($zenderator){
+            $zenderator->runTests(false);
+            $menu->redraw();
+        })
+        ->addItem('Run Tests with Coverage (slow)', function(CliMenu $menu) use ($zenderator){
+            $zenderator->runTests(true);
+            $menu->redraw();
+        })
+        ->end()
+    ->addLineBreak('-')
+    ->addSubMenu('Composer')
+        ->setTitle('Segura Automizer > Composer')
+        ->addItem('Rebuild Composer Autoloader', function(CliMenu $menu) use ($zenderator){
+            $zenderator->cleanCodeComposerAutoloader();
+            $menu->redraw();
+        })
+        ->addItem('Update Segura-Specific Dependencies', function(CliMenu $menu) use ($zenderator){
+            $zenderator->updateSeguraDependencies();
+            $menu->redraw();
+        })
+        ->end()
+    ->addItem('Run Clean', function (CliMenu $menu) use ($zenderator){
+        $zenderator->cleanCode();
+        $menu->redraw();
+    })
+
     ->addLineBreak('-')
     ->build();
 

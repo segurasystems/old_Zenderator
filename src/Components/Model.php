@@ -276,7 +276,7 @@ class Model extends Entity
             #echo " > {$column->getField()}:\n";
             if (count($column->getRelatedObjects()) > 0) {
                 foreach ($column->getRelatedObjects() as $relatedObject) {
-                    echo "Processing Related Objects for {$this->getClassName()}'s {$column->getField()}\n\n";
+                    #echo "Processing Related Objects for {$this->getClassName()}'s {$column->getField()}\n\n";
                     #echo "  > r: {$relatedObject->getRemoteClass()} :: {$relatedObject->getRemoteBoundColumn()}\n";
                     #echo "  > l: {$relatedObject->getLocalClass()} :: {$relatedObject->getLocalBoundColumn()}\n";
                     #echo "\n";

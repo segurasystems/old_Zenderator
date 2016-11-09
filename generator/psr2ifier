@@ -3,6 +3,8 @@
 if (!defined("APP_ROOT")) {
     define("APP_ROOT", realpath(__DIR__ . "/../../../../"));
 }
+require_once(APP_ROOT . "/bootstrap.php");
+use Zend\Stdlib\ConsoleHelper;
 $begin = microtime(true);
 echo "PSR2ifying... \n";
 $pathsToPSR2 = [
@@ -30,7 +32,7 @@ function psr2ify($pathToPSR2)
     $begin = microtime(true);
     exec(APP_ROOT . "/vendor/bin/phpcbf --standard=PSR2 --ignore=*/vendor {$pathToPSR2}");
     $time = microtime(true) - $begin;
-    echo " [Complete in " . number_format($time, 2) . "]\n";
+    echo " [" . ConsoleHelper::COLOR_GREEN . "Complete" . ConsoleHelper::COLOR_RESET . " in " . number_format($time, 2) . "]\n";
     echo ob_get_clean();
 }
 
@@ -41,8 +43,7 @@ foreach ($pathsToPSR2 as $pathToPSR2) {
     if (file_exists($pathToPSR2)) {
         psr2ify($pathToPSR2);
     } else {
-        echo "\n";
-        echo "  > Skipping, files or directory does not exist.\n";
+        echo " [" . ConsoleHelper::COLOR_RED . "Skipping" . ConsoleHelper::COLOR_RESET . ", files or directory does not exist.\n";
     }
 }
 

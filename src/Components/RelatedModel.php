@@ -27,7 +27,7 @@ class RelatedModel extends Entity
 
     public function markClassConflict(bool $conflict)
     {
-        echo "  > Marked {$this->getLocalClass()}/{$this->getRemoteClass()} in conflict.\n";
+        #echo "  > Marked {$this->getLocalClass()}/{$this->getRemoteClass()} in conflict.\n";
         $this->hasClassConflict = $conflict;
         return $this;
     }
