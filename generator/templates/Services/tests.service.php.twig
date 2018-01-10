@@ -136,13 +136,12 @@ class {{ class_name }}Test extends \Segura\AppCore\Test\BaseTestCase
 
     /**
      * @depends testDeleteById
-     * @expectedException \Segura\AppCore\Exceptions\TableGatewayException
-     * @expectedExceptionMessageRegExp /Cannot find {{ class_name }} record by ID '\d+'/
+
      */
     public function testDeleteByIdVerify({{ class_name }}Model $deleted)
     {
         ${{ variable_name }}Service = App::Container()->get({{ class_name }}Service::class);
-        ${{ variable_name }}Service->getById($deleted->getId());
+        $this->assertEquals(null, ${{ variable_name }}Service->getById($deleted->getId()));
     }
 
     public function testGetTermPlural()

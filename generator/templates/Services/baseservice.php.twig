@@ -100,10 +100,10 @@ abstract class Base{{ class_name }}Service
 
     /**
      * @param int $id
-     * @return Models\{{ class_name }}Model
+     * @return Models\{{ class_name }}Model|null
      * @throws \Segura\AppCore\Exceptions\TableGatewayException
      */
-    public function getById(int $id) : Models\{{ class_name }}Model
+    public function getById(int $id) : ?Models\{{ class_name }}Model
     {
         /** @var TableGateways\{{ class_name }}TableGateway ${{ variable_name }}Table */
         ${{ variable_name }}Table = $this->getNewTableGatewayInstance();
