@@ -3,11 +3,10 @@
   "authors": [
     {
       "name": "Matthew Baggett",
-      "email": "matthew@baggett.me"
+      "email": "matt.baggett@segura.co.uk"
     }
   ],
   "bin": [
-    "generator/automize",
     "generator/clean",
     "generator/phpcsfixerfier",
     "generator/sdkifier",
