@@ -125,7 +125,7 @@ abstract class Base{{ class_name }}Model
     /**
      * @returns Models\{{ related_object.getRemoteClass }}Model
      */
-    public function fetch{{ related_object.getRemoteFunctionName }}Object() : Models\{{ related_object.getRemoteClass }}Model
+    public function fetch{{ related_object.getRemoteFunctionName }}Object() : ?Models\{{ related_object.getRemoteClass }}Model
     {
         /** @var ${{ related_object.getRemoteClass }}Service Services\{{ related_object.getRemoteClass }}Service */
         ${{ related_object.getRemoteClass }}Service = App::Container()->get(Services\{{ related_object.getRemoteClass }}Service::class);
@@ -154,7 +154,7 @@ abstract class Base{{ class_name }}Model
         $orderBy = null,
         $orderDirection='ASC'
 {% endif %}
-    ) : Models\{{ remote_object.getLocalClass }}Model {
+    ) : ?Models\{{ remote_object.getLocalClass }}Model {
         /** @var ${{ remote_object.getLocalVariable }}Service Services\{{ remote_object.getLocalClass }}Service */
         ${{ remote_object.getLocalVariable }}Service = App::Container()->get(Services\{{ remote_object.getLocalClass }}Service::class);
 {% if remote_object.local_model_key == 'id' %}
@@ -175,7 +175,7 @@ abstract class Base{{ class_name }}Model
         int $limit = null,
         string $orderBy = null,
         string $orderDirection='ASC'
-    ) : array {
+    ) : ?array {
         /** @var ${{ remote_object.getLocalVariable }}Service Services\{{ remote_object.getLocalClass }}Service */
         ${{ remote_object.getLocalVariable }}Service = App::Container()->get(Services\{{ remote_object.getLocalClass }}Service::class);
 {% if remote_object.local_model_key == 'id' %}
