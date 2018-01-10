@@ -232,10 +232,9 @@ abstract class Base{{ class_name }}Model
         $countOfThingsDestroyed = 0;
         $thingsToDestroy = [];
 {% for remote_object in remote_objects %}
-        try{
-            $thingsToDestroy = array_merge($thingsToDestroy, $this->fetch{{ remote_object.getLocalFunctionName }}Objects());
-        }catch(Exceptions\TableGatewayRecordNotFoundException $exception){
-            // Suppress TGRNFE error, we don't care that nothing was found.
+        ${{ remote_object.getLocalFunctionName }}Objects = $this->fetch{{ remote_object.getLocalFunctionName }}Objects();
+        if ( is_array(${{ remote_object.getLocalFunctionName }}Objects) ) {
+            $thingsToDestroy = array_merge($thingsToDestroy, ${{ remote_object.getLocalFunctionName }}Objects);
         }
 {% endfor %}
         if(count($thingsToDestroy) > 0){

@@ -102,7 +102,6 @@ abstract class Base{{ class_name }}Service
      * @param int $id
      * @return Models\{{ class_name }}Model
      * @throws \Segura\AppCore\Exceptions\TableGatewayException
-     * @throws \Segura\AppCore\Exceptions\TableGatewayRecordNotFoundException
      */
     public function getById(int $id) : Models\{{ class_name }}Model
     {
@@ -118,7 +117,6 @@ abstract class Base{{ class_name }}Service
      * @param $orderDirection string Direction to sort (Select::ORDER_ASCENDING || Select::ORDER_DESCENDING)
      * @return Models\{{ class_name }}Model
      * @throws \Segura\AppCore\Exceptions\TableGatewayException
-     * @throws \Segura\AppCore\Exceptions\TableGatewayRecordNotFoundException
      */
     public function getByField(string $field, $value, $orderBy = null, $orderDirection = Select::ORDER_ASCENDING) : Models\{{ class_name }}Model
     {
@@ -135,7 +133,6 @@ abstract class Base{{ class_name }}Service
      * @param $orderDirection string Direction to sort (Select::ORDER_ASCENDING || Select::ORDER_DESCENDING)
      * @return Models\{{ class_name }}Model[]
      * @throws \Segura\AppCore\Exceptions\TableGatewayException
-     * @throws \Segura\AppCore\Exceptions\TableGatewayRecordNotFoundException
      */
     public function getManyByField(string $field, $value, int $limit = null, $orderBy = null, $orderDirection = Select::ORDER_ASCENDING) : array
     {
@@ -173,7 +170,6 @@ abstract class Base{{ class_name }}Service
      * @param $orderDirection string Direction to sort (Select::ORDER_ASCENDING || Select::ORDER_DESCENDING)
      * @return Models\{{ class_name }}Model
      * @throws \Segura\AppCore\Exceptions\TableGatewayException
-     * @throws \Segura\AppCore\Exceptions\TableGatewayRecordNotFoundException
      */
     public function getMatching($keyValue = [], $orderBy = null, $orderDirection = Select::ORDER_ASCENDING) : Models\{{ class_name }}Model
     {
@@ -188,7 +184,6 @@ abstract class Base{{ class_name }}Service
      * @param $orderDirection string Direction to sort (Select::ORDER_ASCENDING || Select::ORDER_DESCENDING)
      * @return Models\{{ class_name }}Model[]
      * @throws \Segura\AppCore\Exceptions\TableGatewayException
-     * @throws \Segura\AppCore\Exceptions\TableGatewayRecordNotFoundException
      */
     public function getManyMatching($keyValue = [], $orderBy = null, $orderDirection = Select::ORDER_ASCENDING) : array
     {
