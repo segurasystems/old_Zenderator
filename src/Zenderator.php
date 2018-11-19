@@ -342,12 +342,11 @@ class Zenderator
     }
 
     public function runTests(
-        bool $withCoverage = false, 
-        bool$haltOnError = false, 
-        string $testSuite = '', 
+        bool $withCoverage = false,
+        bool$haltOnError = false,
+        string $testSuite = '',
         bool $debug = false
-    ) : int
-    {
+    ) : int {
         echo "Running phpunit... \n";
 
         if ($withCoverage && file_exists(APP_ROOT . "/build/clover.xml")) {
