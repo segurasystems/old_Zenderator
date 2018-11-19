@@ -11,12 +11,18 @@ abstract class Base{{ pack_name }}Model extends AbstractModel
     use PresentableTrait;
 
 {% for property in properties %}
-    const FIELD_{{ property|transform_studly_to_screamingsnake }} = '{{ property }}';
+    const FIELD_{{ property|upper }} = '{{ property|transform_studly_to_camel }}';
 {% endfor %}
+
+    // Constant arrays defined by ENUMs
+{% for propertyName, property in propertiesOptions %}
+    const OPTIONS_{{ propertyName|upper }} = ["{{ property | join('", "') | raw }}"];
+{% endfor %}
+
 
 {% for propertyName, property in propertiesOptions %}
 {% for permittedValue in property %}
-    const {{ propertyName|transform_studly_to_screamingsnake }}_{{ permittedValue|upper|replace({'-':'_'}) }} = '{{ permittedValue }}';
+    const {{ propertyName|upper }}_{{ permittedValue|upper|replace({'-':'_'}) }} = '{{ permittedValue }}';
 {% endfor %}
 {% endfor %}
 

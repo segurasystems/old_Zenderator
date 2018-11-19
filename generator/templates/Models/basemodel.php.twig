@@ -26,6 +26,13 @@ abstract class Base{{ class_name }}Model
     const TYPE_{{ column.getField|upper }} = '{{ column.getDbType }}';
 {% endfor %}
 
+    // Constant arrays defined by ENUMs
+{% for column in columns %}
+{% if column.getDbType == 'enum' and column.getPhpType == 'string' %}
+    const OPTIONS_{{ column.getField|upper }} = ["{{ column.getPermittedValues | join('", "') | raw }}"];
+{% endif %}
+{% endfor %}
+
     // Constants defined by ENUMs
 {% for column in columns %}
 {% if column.getDbType == 'enum' and column.getPhpType == 'string' %}
