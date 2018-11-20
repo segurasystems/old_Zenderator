@@ -11,6 +11,7 @@ use \{{ namespace }}\TableGateways;
 use \{{ namespace }}\Models\{{ class_name }}Model;
 
 {% include '_overwrite_warning.twig' %}
+{% set existingMethods = [] %}
 
 abstract class Base{{ class_name }}Model
     extends AbstractModel
@@ -157,7 +158,12 @@ abstract class Base{{ class_name }}Model
      *****************************************************/
 {% for remote_object in remote_objects %}
 {% if remote_object.getLocalClass != class_name %}
+{% if remote_object.getLocalFunctionName|singularize|transform_camel_to_studly not in existingMethods %}
+{% set existingMethods = existingMethods|merge([ remote_object.getLocalFunctionName|singularize|transform_camel_to_studly ]) %}
+
     /**
+     * Fetch a singular {{ remote_object.getLocalFunctionName|singularize|transform_camel_to_studly }} that references this {{ class_name }}Model.
+     *
      * @param $orderBy string Column to order by. Recommended to use the Constants in Models\{{ remote_object.getLocalClass }}Model::
      * @param $orderDirection string Either "DESC" or "ASC". Recommend using Select::ORDER_ASCENDING or Select::ORDER_DESCENDING
      *
@@ -182,6 +188,8 @@ abstract class Base{{ class_name }}Model
     }
 
     /**
+     * Fetch all matching {{ remote_object.getLocalFunctionName|singularize|transform_camel_to_studly }} that reference this {{ class_name }}Model.
+     *
      * @param $limit int Number to fetch maximum
      * @param $orderBy string Column to order by. Recommended to use the Constants in Models\{{ remote_object.getLocalClass }}Model::
      * @param $orderDirection string Either "DESC" or "ASC". Recommend using Select::ORDER_ASCENDING or Select::ORDER_DESCENDING
@@ -206,6 +214,8 @@ abstract class Base{{ class_name }}Model
     }
 
     /**
+     * Count the number of matching {{ remote_object.getLocalFunctionName|singularize|transform_camel_to_studly }} that reference this {{ class_name }}Model.
+     *
      * @return int Number of objects found.
      *
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -220,6 +230,7 @@ abstract class Base{{ class_name }}Model
         return ${{ remote_object.getLocalVariable }}Service->countByField('{{ remote_object.getLocalBoundColumn }}', $this->{{ remote_object.getRemoteBoundColumnGetter }}());
 {% endif %}
     }
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}
