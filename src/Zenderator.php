@@ -153,7 +153,7 @@ class Zenderator
         $this->twig->addExtension(new InflectionExtension());
 
         $this->twig->addExtension(
-            new \Gone\AppCore\Twig\Extensions\ArrayUniqueTwigExtension()
+            new \Segura\AppCore\Twig\Extensions\ArrayUniqueTwigExtension()
         );
 
         $fct = new \Twig_SimpleFunction('var_export', 'var_export');
