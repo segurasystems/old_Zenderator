@@ -1,9 +1,12 @@
 {
-  "name": "segura/zenderator",
+  "name": "gone.io/zenderator",
   "authors": [
     {
       "name": "Matthew Baggett",
-      "email": "matt.baggett@segura.co.uk"
+      "email": "matthew@baggett.me"
+    },{
+      "name": "Segura Systems",
+      "email": "support@segura.co.uk"
     }
   ],
   "bin": [
@@ -12,15 +15,9 @@
     "generator/sdkifier",
     "generator/zenderator"
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:segurasystems/LibAppCore.git"
-    }
-  ],
   "require": {
     "php": "^7.1",
-    "segura/appcore": "dev-master",
+    "gone.io/appcore": "dev-master",
     "slim/slim": "^3.2",
     "php-school/cli-menu": "^2.0.0",
     "zendframework/zend-db": "^2.7",

@@ -9,8 +9,8 @@ ini_set("memory_limit", "256M");
 $scope = APP_CORE_NAME;
 
 try {
-    $databaseConfigs = $scope::Container()->get(\Segura\AppCore\DbConfig::class);
-}catch(\Segura\AppCore\Exceptions\DbConfigException $dbConfigException){
+    $databaseConfigs = $scope::Container()->get(\Gone\AppCore\DbConfig::class);
+}catch(\Gone\AppCore\Exceptions\DbConfigException $dbConfigException){
     $databaseConfigs = null;
 }
 

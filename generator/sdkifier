@@ -16,15 +16,15 @@ if(defined("APP_CORE_NAME")) {
     $rootOfApp = __DIR__ . "/../";
     require_once("{$rootOfApp}/vendor/autoload.php");
     define("APP_ROOT", __DIR__ . "/../");
-    $scope = Segura\AppCore\App::class;
+    $scope = Gone\AppCore\App::class;
 
     define("APP_NAME", $appName);
-    define("APP_CORE_NAME", "Segura\\{$appName}");
+    define("APP_CORE_NAME", "Gone\\{$appName}");
 }
 
 try {
-    $databaseConfigs = $scope::Container()->get(\Segura\AppCore\DbConfig::class);
-}catch(\Segura\AppCore\Exceptions\DbConfigException $dbConfigException){
+    $databaseConfigs = $scope::Container()->get(\Gone\AppCore\DbConfig::class);
+}catch(\Gone\AppCore\Exceptions\DbConfigException $dbConfigException){
     $databaseConfigs = null;
 }
 

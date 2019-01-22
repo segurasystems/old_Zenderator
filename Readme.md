@@ -95,7 +95,7 @@ Zenderator generates unit tests, ideally for 95%+ coverage of its own generated 
  
 Zenderator tests are written in [PHPUnit](https://phpunit.de/manual/current/en/index.html). PHPUnit is a dependency of Zenderator.
 
-All Zenderator tests should be extending from `Zenderator\Test\BaseTestCase`, or `Segura\AppCore\Test\RoutesTestCase` if the test needs to access an endpoint via the API for integration testing. 
+All Zenderator tests should be extending from `Zenderator\Test\BaseTestCase`, or `Gone\AppCore\Test\RoutesTestCase` if the test needs to access an endpoint via the API for integration testing. 
 
 Tests should endeavour to not leave garbage data in the database, or in any other storage (on disk, in redis for example) by cleaning up after themselves inside the `tearDown()` function. Zenderator tests achieve this by default, by running all SQL queries inside a transaction that is rolled back inside the test destructor. 
  
@@ -109,7 +109,7 @@ To run tests, by default, is very simple, assuming your phpunit.xml/phpunit.xml.
 
 The API can be tested without first starting a server and running curl requests against the API, as would have been traditional previously.
 Instead, we can create [PSR7 Messages](http://www.php-fig.org/psr/psr-7/) and send those into the Slim Router, and have it respond in a manner similar to how it would for a connection into Apache.
-This can be seen in `Segura\AppCore\Test\RoutesTestCase` as the `request()` function.
+This can be seen in `Gone\AppCore\Test\RoutesTestCase` as the `request()` function.
 
 ## Usage
 

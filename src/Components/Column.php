@@ -255,6 +255,7 @@ class Column extends Entity
         switch ($this->getDbType()) {
             case 'float':
             case 'decimal':
+            case 'double':
                 $this->setPhpType('float');
                 break;
             case 'bit':
