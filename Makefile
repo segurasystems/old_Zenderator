@@ -3,6 +3,10 @@ NAME = gone/sdkifier
 DATE=`date +%Y-%m-%d`
 USERID=$(shell id -u)
 
+ifndef VERBOSE
+.SILENT:
+endif
+
 all: build push
 
 clean:
@@ -10,13 +14,13 @@ clean:
 
 prepare:
 	composer install
-	docker pull $(BASE)
+	docker pull $(DOCKER_REPO)$(BASE)
 
 build: prepare clean
-	docker build -t $(NAME):latest -f Dockerfile.SDKifier .
+	docker build --squash -t $(DOCKER_REPO)$(NAME):latest -f Dockerfile.SDKifier .
 
 push:
-	docker push $(NAME):latest
+	docker push $(DOCKER_REPO)$(NAME):latest
 
 test-prepare:
 	composer update -d tests/example-app
