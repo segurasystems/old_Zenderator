@@ -1,5 +1,5 @@
 {
-  "name": "gone.io/zenderator",
+  "name": "segura/zenderator",
   "authors": [
     {
       "name": "Matthew Baggett",
@@ -17,7 +17,7 @@
   ],
   "require": {
     "php": "^7.1",
-    "gone.io/appcore": "dev-master",
+    "segura/appcore": "dev-master",
     "slim/slim": "^3.2",
     "php-school/cli-menu": "^2.0.0",
     "zendframework/zend-db": "^2.7",

@@ -7,9 +7,9 @@ use Gone\Twig\InflectionExtension;
 use Gone\Twig\TransformExtension;
 use GuzzleHttp\Client;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use Gone\AppCore\App;
-use Gone\AppCore\DbConfig;
-use Gone\AppCore\Router\Router;
+use Segura\AppCore\App;
+use Segura\AppCore\DbConfig;
+use Segura\AppCore\Router\Router;
 use Slim\Http\Environment;
 use Slim\Http\Headers;
 use Slim\Http\Request;
@@ -186,7 +186,7 @@ class Zenderator
 
         if ($databaseConfigs instanceof DbConfig) {
             foreach ($databaseConfigs->__toArray() as $dbName => $databaseConfig) {
-                $this->adapters[$dbName]  = new \Gone\AppCore\Adapter($databaseConfig);
+                $this->adapters[$dbName]  = new \Segura\AppCore\Adapter($databaseConfig);
                 $this->metadatas[$dbName] = new Metadata($this->adapters[$dbName]);
                 $this->adapters[$dbName]->query('set global innodb_stats_on_metadata=0;');
             }
@@ -896,7 +896,7 @@ class Zenderator
     {
         /**
          * @var \Slim\App           $app
-         * @var \Gone\AppCore\App $applicationInstance
+         * @var \Segura\AppCore\App $applicationInstance
          */
         $applicationInstance = App::Instance();
         $calledClass         = get_called_class();
