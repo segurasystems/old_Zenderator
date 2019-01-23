@@ -15,6 +15,12 @@
     "generator/sdkifier",
     "generator/zenderator"
   ],
+  "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:segurasystems/AppCore.git"
+        }
+    ],
   "require": {
     "php": "^7.1",
     "gone.io/appcore": "dev-master",

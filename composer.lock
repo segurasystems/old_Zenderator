@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d40a6d09ea293d01eea1d32484a72d3",
+    "content-hash": "d4933d0ef70c1092d2a45b726c32766a",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1013,12 +1013,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/goneio/AppCore.git",
+                "url": "https://github.com/segurasystems/AppCore.git",
                 "reference": "4b812b188dce5c5bef56f734f56079b345d3b062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/goneio/AppCore/zipball/4b812b188dce5c5bef56f734f56079b345d3b062",
+                "url": "https://api.github.com/repos/segurasystems/AppCore/zipball/4b812b188dce5c5bef56f734f56079b345d3b062",
                 "reference": "4b812b188dce5c5bef56f734f56079b345d3b062",
                 "shasum": ""
             },
@@ -1073,7 +1073,6 @@
                     "Gone\\AppCore\\Test\\": "tests/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Matthew Baggett",
@@ -1084,6 +1083,10 @@
                     "email": "support@segura.co.uk"
                 }
             ],
+            "support": {
+                "source": "https://github.com/segurasystems/AppCore/tree/master",
+                "issues": "https://github.com/segurasystems/AppCore/issues"
+            },
             "time": "2018-12-31T06:30:50+00:00"
         },
         {
@@ -5467,7 +5470,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
