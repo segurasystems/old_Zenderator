@@ -1,11 +1,11 @@
 <?php
 {% set priorities = [ "create", "get", "list", "delete" ] %}
-namespace Gone\SDK\{{ app_name }}\Test\AccessLayer;
+namespace {{ app_namespace }}\SDK\{{ app_name }}\Test\AccessLayer;
 
 use PHPUnit\Framework\TestCase;
-use Gone\SDK\{{ app_name }}\AccessLayer\{{ pack_name }}AccessLayer;
-use Gone\SDK\{{ app_name }}\Client as SDKClient;
-use Gone\SDK\{{ app_name }}\Models;
+use {{ app_namespace }}\SDK\{{ app_name }}\AccessLayer\{{ pack_name }}AccessLayer;
+use {{ app_namespace }}\SDK\{{ app_name }}\Client as SDKClient;
+use {{ app_namespace }}\SDK\{{ app_name }}\Models;
 use Gone\SDK\Common\Filters\Filter;
 
 class {{ pack_name }}Test extends TestCase{

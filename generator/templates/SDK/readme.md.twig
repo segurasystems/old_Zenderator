@@ -21,7 +21,7 @@ to your composer.json:
 ```JSON
     ...
     "require": {
-        "segura/lib{{ app_name|lower }}": "version-here",
+        "{{ app_namespace|lower }}/lib{{ app_name|lower }}": "version-here",
         ...
     },
     ...
@@ -32,8 +32,8 @@ to your composer.json:
 ### {{ class }}
 
 ```php
-    use \Gone\SDK\{{ app_name }}\Client as SDKClient;
-    use \Gone\SDK\{{ app_name }}\Models;
+    use \{{ app_namespace }}\SDK\{{ app_name }}\Client as SDKClient;
+    use \{{ app_namespace }}\SDK\{{ app_name }}\Models;
     $sdkClient      = new SDKClient();
 
     // Listing all elements
