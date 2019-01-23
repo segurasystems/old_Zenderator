@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6a092250152d38bde18314a3a17f124",
+    "content-hash": "3d40a6d09ea293d01eea1d32484a72d3",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1009,6 +1009,84 @@
             "time": "2018-06-28T14:34:11+00:00"
         },
         {
+            "name": "gone.io/appcore",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/goneio/AppCore.git",
+                "reference": "4b812b188dce5c5bef56f734f56079b345d3b062"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/goneio/AppCore/zipball/4b812b188dce5c5bef56f734f56079b345d3b062",
+                "reference": "4b812b188dce5c5bef56f734f56079b345d3b062",
+                "shasum": ""
+            },
+            "require": {
+                "bnf/slim3-psr15": "^1.0",
+                "gone.io/sessions": "^1.0",
+                "gone.io/twig-extension-inflection": "^1.0",
+                "gone.io/twig-extension-transform": "^1.0",
+                "gone.io/uuid": "^2.2",
+                "guzzlehttp/guzzle": "^6.2.1",
+                "intouch/newrelic": "^1.0",
+                "jdorn/sql-formatter": "^1.2",
+                "jimmiw/php-time-ago": "^0.4.11",
+                "kint-php/kint": "^2.0",
+                "marcusschwarz/lesserphp": "^0.5.2",
+                "middlewares/debugbar": "^1.0",
+                "middlewares/encoder": "^1.0",
+                "middlewares/geolocation": "^1.0",
+                "middlewares/minifier": "^1.0",
+                "middlewares/negotiation": "^1.0",
+                "middlewares/trailing-slash": "^1.0",
+                "middlewares/whoops": "^1.1",
+                "monolog/monolog": "^1.19.0",
+                "php": "^7.1",
+                "predis/predis": "^1.0",
+                "sebastian/diff": "^3.0",
+                "slim/slim": "^3.2",
+                "slim/twig-view": "^2.1",
+                "symfony/var-dumper": "^3.0",
+                "symfony/yaml": "^3.0",
+                "twig/extensions": "^1.3",
+                "zendframework/zend-db": "^2.7",
+                "zeuxisoo/slim-whoops": "^0.5.0"
+            },
+            "require-dev": {
+                "facebook/webdriver": "^1.2",
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "fzaninotto/faker": "dev-master",
+                "phpunit/phpcov": "^5.0",
+                "phpunit/phpunit": "^7.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "bin": [
+                "bin/auto-configure",
+                "bin/data-importer",
+                "bin/data-purge"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gone\\AppCore\\": "src",
+                    "Gone\\AppCore\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Matthew Baggett",
+                    "email": "matthew@baggett.me"
+                },
+                {
+                    "name": "Segura Systems",
+                    "email": "support@segura.co.uk"
+                }
+            ],
+            "time": "2018-12-31T06:30:50+00:00"
+        },
+        {
             "name": "gone.io/inflection",
             "version": "v2.1.2",
             "source": {
@@ -1045,6 +1123,38 @@
             ],
             "description": "A library to allow for pluralisation and singularisation of words programatically.",
             "time": "2017-06-21T13:28:00+00:00"
+        },
+        {
+            "name": "gone.io/sessions",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/goneio/Sessions.git",
+                "reference": "eab3abdc03e3efaa6b6715d5741fbab57aa683ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/goneio/Sessions/zipball/eab3abdc03e3efaa6b6715d5741fbab57aa683ff",
+                "reference": "eab3abdc03e3efaa6b6715d5741fbab57aa683ff",
+                "shasum": ""
+            },
+            "require": {
+                "predis/predis": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gone\\Session\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Matthew Baggett",
+                    "email": "matthew@baggett.me"
+                }
+            ],
+            "time": "2018-12-16T00:48:13+00:00"
         },
         {
             "name": "gone.io/twig-extension-inflection",
@@ -4786,112 +4896,6 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
-            "name": "segura/appcore",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/segurasystems/LibAppCore.git",
-                "reference": "cad54d56816fc6994189f6e72dbf1e7193c71aa6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/segurasystems/LibAppCore/zipball/cad54d56816fc6994189f6e72dbf1e7193c71aa6",
-                "reference": "cad54d56816fc6994189f6e72dbf1e7193c71aa6",
-                "shasum": ""
-            },
-            "require": {
-                "bnf/slim3-psr15": "^1.0",
-                "gone.io/twig-extension-inflection": "^1.0",
-                "gone.io/twig-extension-transform": "^1.0",
-                "gone.io/uuid": "^2.2",
-                "guzzlehttp/guzzle": "^6.2.1",
-                "intouch/newrelic": "^1.0",
-                "jdorn/sql-formatter": "^1.2",
-                "jimmiw/php-time-ago": "^0.4.11",
-                "kint-php/kint": "^2.0",
-                "marcusschwarz/lesserphp": "^0.5.2",
-                "middlewares/debugbar": "^1.0",
-                "middlewares/encoder": "^1.0",
-                "middlewares/geolocation": "^1.0",
-                "middlewares/minifier": "^1.0",
-                "middlewares/negotiation": "^1.0",
-                "middlewares/trailing-slash": "^1.0",
-                "middlewares/whoops": "^1.1",
-                "monolog/monolog": "^1.19.0",
-                "php": "^7.0",
-                "predis/predis": "^1.0",
-                "sebastian/diff": "^3.0",
-                "segura/sessions": "^1.0",
-                "slim/slim": "^3.2",
-                "slim/twig-view": "^2.1",
-                "symfony/var-dumper": "^3.0",
-                "symfony/yaml": "^3.0",
-                "twig/extensions": "^1.3",
-                "zendframework/zend-db": "^2.7",
-                "zeuxisoo/slim-whoops": "^0.5.0"
-            },
-            "require-dev": {
-                "facebook/webdriver": "^1.2",
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "fzaninotto/faker": "dev-master",
-                "phpunit/phpcov": "^5.0",
-                "phpunit/phpunit": "^7.0",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "bin": [
-                "bin/auto-configure",
-                "bin/data-importer",
-                "bin/data-purge"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Segura\\AppCore\\": "src",
-                    "Segura\\AppCore\\Test\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Matthew Baggett",
-                    "email": "matthew@baggett.me"
-                }
-            ],
-            "time": "2018-12-12T15:58:39+00:00"
-        },
-        {
-            "name": "segura/sessions",
-            "version": "v1.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/segurasystems/LibSessions.git",
-                "reference": "86a2e46afeaebb1a6a344f18f3fe6a318f1026f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/segurasystems/LibSessions/zipball/86a2e46afeaebb1a6a344f18f3fe6a318f1026f3",
-                "reference": "86a2e46afeaebb1a6a344f18f3fe6a318f1026f3",
-                "shasum": ""
-            },
-            "require": {
-                "predis/predis": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Segura\\Session\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Matthew Baggett",
-                    "email": "matthew@baggett.me"
-                }
-            ],
-            "time": "2018-06-13T14:14:38+00:00"
-        },
-        {
             "name": "slim/slim",
             "version": "3.12.0",
             "source": {
@@ -6453,7 +6457,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "segura/appcore": 20
+        "gone.io/appcore": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
