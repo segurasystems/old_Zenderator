@@ -1,7 +1,8 @@
-BASE = gone/php:cli
-NAME = gone/sdkifier
+BASE = base/cli:branch_master
+NAME = utils/sdkifier
 DATE=`date +%Y-%m-%d`
 USERID=$(shell id -u)
+DOCKER_REPO=658637146154.dkr.ecr.eu-west-1.amazonaws.com/
 
 ifndef VERBOSE
 .SILENT:
