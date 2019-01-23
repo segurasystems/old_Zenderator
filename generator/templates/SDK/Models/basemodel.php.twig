@@ -1,10 +1,10 @@
 <?php
-namespace Gone\SDK\{{ app_name }}\Models\Base;
+namespace {{ app_namespace }}\SDK\{{ app_name }}\Models\Base;
 
 use Gone\SDK\Common\Abstracts\AbstractModel;
 use Gone\SDK\Common\Traits\PresentableTrait;
-use Gone\SDK\{{ app_name }}\AccessLayer\{{ pack_name }}AccessLayer;
-use Gone\SDK\{{ app_name }}\Models\{{ pack_name }}Model;
+use {{ app_namespace }}\SDK\{{ app_name }}\AccessLayer\{{ pack_name }}AccessLayer;
+use {{ app_namespace }}\SDK\{{ app_name }}\Models\{{ pack_name }}Model;
 
 abstract class Base{{ pack_name }}Model extends AbstractModel
 {

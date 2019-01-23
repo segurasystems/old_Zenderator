@@ -1,5 +1,5 @@
 {
-    "name": "segura/lib{{ app_name|lower }}",
+    "name": "{{ app_namespace|lower }}/lib{{ app_name|lower }}",
     "authors": [
         {
             "name": "Matthew Baggett",
@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Gone\\SDK\\{{ app_name }}\\": "src"
+            "{{ app_namespace }}\\SDK\\{{ app_name }}\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Gone\\SDK\\{{ app_name }}\\Test\\": "tests/"
+            "{{ app_namespace }}\\SDK\\{{ app_name }}\\Test\\": "tests/"
         }
     }
 }

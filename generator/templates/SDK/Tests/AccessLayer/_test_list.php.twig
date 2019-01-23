@@ -8,7 +8,7 @@
             $this->markTestSkipped("There was no data returned calling {{ route.function }}() on {{ pack_name|lower }}.");
         }
         $element = $response[rand(0,count($response) - 1)];
-        $this->assertEquals('Gone\SDK\{{ app_name }}\Models\{{ route.singular }}Model', get_class($element));
+        $this->assertEquals('{{ app_namespace }}\SDK\{{ app_name }}\Models\{{ route.singular }}Model', get_class($element));
         return $response;
     }
 
@@ -26,7 +26,7 @@
             $this->markTestSkipped("There was no data returned calling {{ route.function }}() on {{ pack_name|lower }}.");
         }
         $element = $response[rand(0,count($response) - 1)];
-        $this->assertEquals('Gone\SDK\{{ app_name }}\Models\{{ route.singular }}Model', get_class($element));
+        $this->assertEquals('{{ app_namespace }}\SDK\{{ app_name }}\Models\{{ route.singular }}Model', get_class($element));
         $this->assertEquals(1, count($response));
         return $response[0];
     }
@@ -35,7 +35,7 @@
      * @depends test{{ route.function|capitalize }}LimitOne
      * @vcr unittest_{{ pack_name|lower }}_list.cassette
      **/
-    public function test{{ route.function|capitalize }}Wheres(\Gone\SDK\{{ app_name }}\Models\{{ route.singular }}Model $toFind)
+    public function test{{ route.function|capitalize }}Wheres(\{{ app_namespace }}\SDK\{{ app_name }}\Models\{{ route.singular }}Model $toFind)
     {
         $filter = Filter::Factory();
 {% for key, value in route.example %}
@@ -45,9 +45,9 @@
 {% endfor %}
         $response = $this->client->{{ scope_name }}->{{ route.function }}($filter);
         //\Kint::dump($response);
-        /** @var $element \Gone\SDK\{{ app_name }}\Models\{{ route.singular }}Model */
+        /** @var $element \{{ app_namespace }}\SDK\{{ app_name }}\Models\{{ route.singular }}Model */
         $element = $response[rand(0,count($response) - 1)];
-        $this->assertEquals('Gone\SDK\{{ app_name }}\Models\{{ route.singular }}Model', get_class($element));
+        $this->assertEquals('{{ app_namespace }}\SDK\{{ app_name }}\Models\{{ route.singular }}Model', get_class($element));
         $this->assertEquals(1, count($response));
 {% for key, value in route.example %}
 {% if value %}
