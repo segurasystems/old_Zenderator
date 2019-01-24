@@ -10,8 +10,9 @@
     public function {{ route.function }}(
 {% if route.callbackProperties %}
 {% for callbackProperty in route.callbackProperties %}
-        ${{ callbackProperty.name }}{% if not callbackProperty.mandatory %} = "{{ callbackProperty.default }}"{% endif %}{% if not loop.last %},{% endif %}
+        ${{ callbackProperty.name }}{% if not callbackProperty.isMandatory %} = "{{ callbackProperty.default }}"{% endif %}{% if not loop.last %},{% endif %}
 {% endfor %}
+
 {% endif %}
     )
     {
