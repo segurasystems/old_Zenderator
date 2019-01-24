@@ -4,16 +4,19 @@
      * @param ${{ callbackProperty.name }}
 {% endfor %}
 {% endif %}
+     * @param $_headers
      * @return array
      * @throws Exceptions\SDKException
+     * callback
      **/
     public function {{ route.function }}(
 {% if route.callbackProperties %}
 {% for callbackProperty in route.callbackProperties %}
-        ${{ callbackProperty.name }}{% if callbackProperty.default %} = "{{ callbackProperty.default }}"{% endif %}{% if not loop.last %},{% endif %}
+        ${{ callbackProperty.name }}{% if callbackProperty.default %} = "{{ callbackProperty.default }}"{% endif %},
 
 {% endfor %}
 {% endif %}
+        $_headers = []
     )
     {
 {% if route.callbackProperties %}
@@ -44,9 +47,9 @@
                 $method,
                 $endpoint,
                 [
-                    'headers' => [
+                    'headers' => array_merge([
                         'Accept' => 'application/json',
-                    ],
+                    ],$_headers),
 {% if route.callbackProperties %}
                     'body' => json_encode($propertyArray),
 {% endif %}
@@ -66,7 +69,9 @@
                     "Method: {$method}\n" .
                     "GuzzleConfig: " . var_export($this->sdkClient->getGuzzle()->getConfig(), true) . "\n".
                     "URL: {$endpoint}\n" .
+{% if route.callbackProperties %}
                     "Request: " .  json_encode($propertyArray, JSON_PRETTY_PRINT) . "\n\n" .
+{% endif %}
                     var_export($body, true)
                 );
             }
